@@ -40,7 +40,13 @@ export default function Home() {
 
         {/* Right Panel */}
         <RightPanel 
-          
+          tipAmount={tipAmount}
+          totalPerPerson={totalPerPerson}
+          reset={() => {
+            setBill(0);
+            setTip(0);
+            setPeople(1);
+          }}
         />
       </div>
     </main>
