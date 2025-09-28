@@ -1,6 +1,19 @@
+"use client";
+
 import Image from "next/image";
 
-export default function LeftPanel() {
+interface LeftPanelProps {
+  bill: number;
+  setBill: (value: number) => void;
+  tip: number;
+  setTip: (value: number) => void;
+  people: number;
+  setPeople: (value: number) => void;
+}
+
+export default function LeftPanel({ bill, setBill, tip, setTip, people, setPeople }: LeftPanelProps) {
+  const tipOptions = [5, 10, 15, 25, 50];
+
   return (
     <div className="flex-1 bg-white p-6 rounded-xl shadow-md">
       {/* Bill */}
@@ -17,6 +30,8 @@ export default function LeftPanel() {
           <input
             type="number"
             placeholder="0"
+            value={bill}
+            onChange={(e) => setBill(Number(e.target.value))}
             className="w-full text-right pr-3 pl-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
@@ -26,17 +41,22 @@ export default function LeftPanel() {
       <div className="mb-6">
         <label className="block text-gray-600 mb-2">Select Tip %</label>
         <div className="grid grid-cols-3 gap-3">
-          {["5%", "10%", "15%", "25%", "50%"].map((tip) => (
+          {tipOptions.map((t) => (
             <button
-              key={tip}
-              className="bg-teal-900 text-white py-2 rounded-lg hover:bg-teal-700 transition"
+              key={t}
+              className={`py-2 rounded-lg transition ${
+                tip === t ? "bg-teal-400 text-teal-900" : "bg-teal-900 text-white hover:bg-teal-700"
+              }`}
+              onClick={() => setTip(t)}
             >
-              {tip}
+              {t}%
             </button>
           ))}
           <input
             type="number"
             placeholder="Custom"
+            value={tipOptions.includes(tip) ? "" : tip}
+            onChange={(e) => setTip(Number(e.target.value))}
             className="w-full text-center py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
@@ -56,6 +76,9 @@ export default function LeftPanel() {
           <input
             type="number"
             placeholder="0"
+            value={people}
+            min={1}
+            onChange={(e) => setPeople(Number(e.target.value))}
             className="w-full text-right pr-3 pl-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>

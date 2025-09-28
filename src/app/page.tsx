@@ -13,7 +13,7 @@ export default function Home() {
 
   const tipAmount = people > 0 ? (bill * (tip / 100)) / people : 0;
   const totalPerPerson = people > 0 ? bill / people + tipAmount : 0;
-  
+
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center font-mono bg-[hsl(172, 67%, 45%)] ">
@@ -29,10 +29,19 @@ export default function Home() {
       {/* Container */}
       <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10 flex flex-col md:flex-row max-w-4xl w-full">
         {/* Left Panel */}
-        <LeftPanel />
+        <LeftPanel 
+          bill={bill}
+          setBill={setBill}
+          tip={tip}
+          setTip={setTip}
+          people={people}
+          setPeople={setPeople}
+        />
 
         {/* Right Panel */}
-        <RightPanel />
+        <RightPanel 
+          
+        />
       </div>
     </main>
   );
