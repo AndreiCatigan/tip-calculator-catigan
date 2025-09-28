@@ -1,8 +1,20 @@
+"use client"; 
+
+import { useState } from "react";
 import Image from "next/image";
 import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
 
 export default function Home() {
+
+  const [bill, setBill] = useState(0);
+  const [tip, setTip] = useState(0);
+  const [people, setPeople] = useState(1);
+
+  const tipAmount = people > 0 ? (bill * (tip / 100)) / people : 0;
+  const totalPerPerson = people > 0 ? bill / people + tipAmount : 0;
+  
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center font-mono bg-[hsl(172, 67%, 45%)] ">
       {/* Logo */}
