@@ -6,14 +6,13 @@ import LeftPanel from "./components/LeftPanel";
 import RightPanel from "./components/RightPanel";
 
 export default function Home() {
-
   const [bill, setBill] = useState(0);
   const [tip, setTip] = useState(0);
   const [people, setPeople] = useState(1);
+  const [customTipInput, setCustomTipInput] = useState(""); // lifted state
 
   const tipAmount = people > 0 ? (bill * (tip / 100)) / people : 0;
   const totalPerPerson = people > 0 ? bill / people + tipAmount : 0;
-
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center font-mono bg-[hsl(172, 67%, 45%)] ">
@@ -36,6 +35,8 @@ export default function Home() {
           setTip={setTip}
           people={people}
           setPeople={setPeople}
+          customTipInput={customTipInput}
+          setCustomTipInput={setCustomTipInput}
         />
 
         {/* Right Panel */}
@@ -46,6 +47,7 @@ export default function Home() {
             setBill(0);
             setTip(0);
             setPeople(1);
+            setCustomTipInput(""); // reset custom input
           }}
         />
       </div>

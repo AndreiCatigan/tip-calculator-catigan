@@ -9,9 +9,20 @@ interface LeftPanelProps {
   setTip: (value: number) => void;
   people: number;
   setPeople: (value: number) => void;
+  customTipInput: string;
+  setCustomTipInput: (value: string) => void;
 }
 
-export default function LeftPanel({ bill, setBill, tip, setTip, people, setPeople }: LeftPanelProps) {
+export default function LeftPanel({
+  bill,
+  setBill,
+  tip,
+  setTip,
+  people,
+  setPeople,
+  customTipInput,
+  setCustomTipInput,
+}: LeftPanelProps) {
   const tipOptions = [5, 10, 15, 25, 50];
 
   return (
@@ -30,8 +41,9 @@ export default function LeftPanel({ bill, setBill, tip, setTip, people, setPeopl
           <input
             type="number"
             placeholder="0"
-            value={bill}
+            value={bill === 0 ? "" : bill}
             onChange={(e) => setBill(Number(e.target.value))}
+            onFocus={(e) => e.target.select()}
             className="w-full text-right pr-3 pl-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
@@ -45,18 +57,29 @@ export default function LeftPanel({ bill, setBill, tip, setTip, people, setPeopl
             <button
               key={t}
               className={`py-2 rounded-lg transition ${
-                tip === t ? "bg-teal-400 text-teal-900" : "bg-teal-900 text-white hover:bg-teal-700"
+                customTipInput === "" && tip === t
+                  ? "bg-teal-400 text-teal-900"
+                  : "bg-teal-900 text-white hover:bg-teal-700"
               }`}
-              onClick={() => setTip(t)}
+              onClick={() => {
+                setTip(t);
+                setCustomTipInput(""); // clear custom input when button clicked
+              }}
             >
               {t}%
             </button>
           ))}
+
           <input
             type="number"
             placeholder="Custom"
-            value={tipOptions.includes(tip) ? "" : tip}
-            onChange={(e) => setTip(Number(e.target.value))}
+            value={customTipInput}
+            onChange={(e) => {
+              const val = e.target.value;
+              setCustomTipInput(val);        // always update display
+              setTip(val === "" ? 0 : Number(val)); // update tip immediately
+            }}
+            onFocus={(e) => e.target.select()}
             className="w-full text-center py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
@@ -76,9 +99,10 @@ export default function LeftPanel({ bill, setBill, tip, setTip, people, setPeopl
           <input
             type="number"
             placeholder="0"
-            value={people}
             min={1}
+            value={people === 0 ? "" : people}
             onChange={(e) => setPeople(Number(e.target.value))}
+            onFocus={(e) => e.target.select()}
             className="w-full text-right pr-3 pl-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
