@@ -3,9 +3,6 @@ import Image from "next/image";
 export default function LeftPanel() {
   return (
     <div className="flex-1 bg-white p-6 rounded-xl shadow-md">
-<<<<<<< HEAD
-      
-=======
       {/* Bill */}
       <div className="mb-6">
         <label className="block text-gray-600 mb-2">Bill</label>
@@ -63,7 +60,6 @@ export default function LeftPanel() {
           />
         </div>
       </div>
->>>>>>> feature/left-panel
     </div>
   );
 }
