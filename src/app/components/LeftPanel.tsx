@@ -87,7 +87,14 @@ export default function LeftPanel({
 
       {/* Number of People */}
       <div>
-        <label className="block text-gray-600 mb-2">Number of People</label>
+        <div className="flex justify-between items-center mb-2">
+          <label className="text-gray-600">Number of People</label>
+            {people === 0 && (
+            <span className="text-red-500 text-sm font-medium">
+              Can’t be zero
+            </span>
+            )}
+        </div>
         <div className="relative">
           <Image
             src="/icon-person.svg"
@@ -103,7 +110,11 @@ export default function LeftPanel({
             value={people === 0 ? "" : people}
             onChange={(e) => setPeople(Number(e.target.value))}
             onFocus={(e) => e.target.select()}
-            className="w-full text-right pr-3 pl-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className={`w-full text-right pr-3 pl-8 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
+              people === 0
+                ? "border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:ring-teal-500"
+            }`}
           />
         </div>
       </div>
